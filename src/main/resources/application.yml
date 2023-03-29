@@ -1,0 +1,27 @@
+config:
+  topic:
+    name: ${TOPIC_NAME}
+example:
+  kafka:
+    consumer-enabled: ${consumer-enabled:true}
+spring:
+  kafka:
+    bootstrap-servers: ${kafka_bootstrap_servers:kafka:9093}
+    properties:
+      security:
+        spring.json.add.type.headers: false
+        spring.json.trusted.packages: '*'
+        protocol: PLAINTEXT
+      
+
+    producer:
+      client-id: example
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+      value-serializer:  org.springframework.kafka.support.serializer.JsonSerializer
+      retries: 2
+
+    listener:
+      poll-timeout: 1800000
+      concurrency: 1
+      ack-mode: manual_immediate
